@@ -284,7 +284,7 @@ export const Dashboard = () => {
 
                 <div className="mt-6 pt-6 border-t border-primary/20">
                   <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-consciousness flex items-center justify-center">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full gradient-consciousness flex items-center justify-center">
                       <Brain className="w-8 h-8 text-primary animate-pulse" />
                     </div>
                     <h3 className="text-lg font-semibold mb-2">Neural Network Status</h3>
