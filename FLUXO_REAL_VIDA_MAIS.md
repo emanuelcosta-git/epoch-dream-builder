@@ -18,22 +18,22 @@
 ### **🔄 Como Funciona:**
 ```mermaid
 flowchart TD
-    A[Ariela atualiza<br/>planilha Excel] --> B{Valor > R$ 5.000?}
+    A[Ariela atualiza planilha Excel] --> B{Valor > R$ 5.000?}
     
     B -->|Nao| C[Aprovacao Automatica]
     B -->|Sim| D[Aguarda Renata]
     
-    C --> E[Email automatico<br/>para Sonia e Ze]
+    C --> E[Email automatico para Sonia e Ze]
     
-    D --> F[Email para Renata<br/>"Precisa aprovar"]
-    F --> G[Renata analisa<br/>e responde por email]
+    D --> F[Email para Renata - Precisa aprovar]
+    F --> G[Renata analisa e responde por email]
     
     G --> H{Aprovou?}
     H -->|Sim| I[Pagamento aprovado]
     H -->|Nao| J[Pagamento rejeitado]
     
     I --> E
-    J --> K[Registra rejeicao<br/>Aguarda ajustes]
+    J --> K[Registra rejeicao - Aguarda ajustes]
     
     style A fill:#e3f2fd
     style C fill:#c8e6c9
@@ -78,15 +78,15 @@ flowchart LR
     end
     
     subgraph "Ariela"
-        E[Acessa conta<br/>Vida Mais]
-        F[Pega<br/>comprovantes]
-        G[Atualiza<br/>tabela]
+        E[Acessa conta Vida Mais]
+        F[Pega comprovantes]
+        G[Atualiza tabela]
     end
     
     subgraph "Ze"
         H[Analisa dados]
         I[Gera relatorio]
-        J[Envia para<br/>todos]
+        J[Envia para todos]
     end
     
     A --> E
