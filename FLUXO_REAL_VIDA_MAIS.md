@@ -1,91 +1,73 @@
-# Fluxo Real do Sistema - Baseado na Pauta da Reunião Vida Mais
+# Como Funciona o Sistema Vida Mais - Baseado na Reunião Real
 
 ## 📅 **Contexto da Reunião**
 **Data**: Quinta-feira, 7 de agosto de 2025  
 **Participantes**: Aldemar, Nathalia, Emanuel e Ariela (vida+)  
-**Data de Resposta**: Semana do dia 22/08 (terceira semana de agosto)
+**Prazo de Resposta**: Semana do dia 22/08 (terceira semana de agosto)
 
 ---
 
-## 🎯 **1. Pagamentos Mensais Fixos - Fluxo Principal**
+## 🎯 **1. Pagamentos Mensais Fixos - Como Funciona**
 
+### **📊 O que é:**
+- **Funcionários**: Salários mensais
+- **Aluguel**: Escritório e depósito
+- **Bolsas de Estudo**: Benefícios educacionais
+- **Reembolsos**: Lanches, transporte (valores baixos)
+
+### **🔄 Como Funciona:**
 ```mermaid
 flowchart TD
-    A[📊 Planilha de Controle<br/>Pagamentos Fixos] --> B{💰 Valor > Limite<br/>Renata?}
+    A[📊 Ariela atualiza<br/>planilha Excel] --> B{💰 Valor > R$ 5.000?}
     
-    B -->|❌ Não (Reembolso lanches)| C[✅ Aprovação Automática]
-    B -->|✅ Sim (Valores altos)| D[⏳ Aguarda Aprovação Renata]
+    B -->|❌ Não (lanches, reembolsos)| C[✅ Aprovação Automática]
+    B -->|✅ Sim (salários, aluguel)| D[⏳ Aguarda Renata]
     
-    C --> E[📧 Email para Sonia e Zé<br/>Relatório Mensal]
-    C --> F[📝 Registra no Sistema<br/>Status: Aprovado]
+    C --> E[📧 Email automático<br/>para Sonia e Zé]
     
-    D --> G[📧 Email para Renata<br/>Solicita Aprovação]
-    G --> H[👩‍💼 Renata Analisa<br/>Responde por Email]
+    D --> F[📧 Email para Renata<br/>"Precisa aprovar"]
+    F --> G[👩‍💼 Renata analisa<br/>e responde por email]
     
-    H --> I{🔍 Aprova?}
-    I -->|✅ Sim| J[✅ Status: Aprovado]
-    I -->|❌ Não| K[❌ Status: Rejeitado]
+    G --> H{🔍 Aprovou?}
+    H -->|✅ Sim| I[✅ Pagamento aprovado]
+    H -->|❌ Não| J[❌ Pagamento rejeitado]
     
-    J --> L[📧 Email para Ariela<br/>Confirma Aprovação]
-    K --> M[📧 Email para Ariela<br/>Justifica Rejeição]
-    
-    L --> E
-    M --> N[📝 Registra Rejeição<br/>Aguarda Ajustes]
+    I --> E
+    J --> K[📝 Registra rejeição<br/>Aguarda ajustes]
     
     style A fill:#e3f2fd
     style C fill:#c8e6c9
     style D fill:#fff3e0
-    style J fill:#c8e6c9
-    style K fill:#ffcdd2
+    style I fill:#c8e6c9
+    style J fill:#ffcdd2
     style E fill:#e8f5e8
 ```
 
-### 📋 **Detalhes dos Pagamentos Fixos**
-
-```mermaid
-graph TB
-    subgraph "💳 Tipos de Pagamentos Fixos"
-        A[👥 Funcionários]
-        B[🏠 Aluguel]
-        C[🎓 Bolsas de Estudo]
-        D[🍕 Reembolso Lanches]
-        E[📊 Outros Gastos]
-    end
-    
-    subgraph "📊 Controle por Planilha"
-        F[📅 Mês/Ano]
-        G[💰 Valor]
-        H[🏷️ Classificação]
-        I[📄 Número NF]
-        J[👤 Responsável]
-        K[📝 Observações]
-    end
-    
-    subgraph "⚖️ Rateamento de Salários"
-        L[👥 Funcionário]
-        M[📁 Projeto A - 40%]
-        N[📁 Projeto B - 35%]
-        O[📁 Projeto C - 25%]
-        P[💰 Total: 100%]
-    end
-    
-    A --> F
-    B --> F
-    C --> F
-    D --> F
-    E --> F
-    
-    L --> M --> N --> O --> P
-    
-    style A fill:#e3f2fd
-    style F fill:#fff3e0
-    style L fill:#c8e6c9
+### **📋 Exemplo da Planilha:**
+```
+MÊS: AGOSTO 2025
+┌─────────────────┬──────────┬──────────┬─────────────┐
+│ ITEM            │ VALOR    │ TIPO     │ APROVAÇÃO   │
+├─────────────────┼──────────┼──────────┼─────────────┤
+│ João Silva      │ R$ 3.500 │ Salário  │ Renata      │
+│ Maria Santos    │ R$ 2.800 │ Salário  │ Renata      │
+│ Aluguel Escrit. │ R$ 2.500 │ Aluguel  │ Renata      │
+│ Lanches         │ R$ 150   │ Reembolso│ Automática  │
+│ Transporte      │ R$ 200   │ Reembolso│ Automática  │
+└─────────────────┴──────────┴──────────┴─────────────┘
+TOTAL: R$ 9.150
 ```
 
 ---
 
-## 🔄 **2. Gastos Variáveis - Tabela Google Drive**
+## 🔄 **2. Gastos Variáveis - Como Funciona**
 
+### **📊 O que é:**
+- Gastos que mudam todo mês
+- Alimentação, transporte, material de escritório
+- Manutenção, comunicação, outros
+
+### **🔄 Como Funciona:**
 ```mermaid
 flowchart LR
     subgraph "📊 Tabela Google Drive"
@@ -93,128 +75,83 @@ flowchart LR
         B[🏷️ Classificação]
         C[💰 Valor]
         D[📝 Observações]
-        E[📎 Comprovante]
-        F[👤 Solicitante]
     end
     
-    subgraph "👩‍💼 Ariela (Conta Vida Mais)"
-        G[💳 Acessa Conta]
-        H[📱 Pega Comprovantes]
-        I[📊 Atualiza Tabela]
-        J[📧 Informa Zé]
+    subgraph "👩‍💼 Ariela"
+        E[💳 Acessa conta<br/>Vida Mais]
+        F[📱 Pega<br/>comprovantes]
+        G[📊 Atualiza<br/>tabela]
     end
     
-    subgraph "👨‍💼 Zé (Relatórios)"
-        K[📊 Analisa Dados]
-        L[📈 Gera Relatório]
-        M[📧 Envia para Stakeholders]
-        N[💾 Arquivo XLS/TXT]
+    subgraph "👨‍💼 Zé"
+        H[📊 Analisa dados]
+        I[📈 Gera relatório]
+        J[📧 Envia para<br/>todos]
     end
     
-    A --> G
-    B --> G
-    C --> G
-    D --> G
-    E --> G
-    F --> G
+    A --> E
+    B --> E
+    C --> E
+    D --> E
     
+    E --> F --> G
     G --> H --> I --> J
-    J --> K --> L --> M
-    L --> N
     
     style A fill:#e3f2fd
-    style G fill:#c8e6c9
-    style K fill:#ff9800,color:#fff
+    style E fill:#c8e6c9
+    style H fill:#ff9800,color:#fff
 ```
 
-### 📊 **Estrutura da Tabela Google Drive**
-
-```mermaid
-graph TB
-    subgraph "📊 Tabela Excel - Gastos Variáveis"
-        A[📅 Janeiro 2025]
-        B[📅 Fevereiro 2025]
-        C[📅 Março 2025]
-        D[📅 Abril 2025]
-    end
-    
-    subgraph "🏷️ Classificações por Mês"
-        E[🍕 Alimentação]
-        F[🚗 Transporte]
-        G[📚 Material Escritório]
-        H[🔧 Manutenção]
-        I[📱 Comunicação]
-        J[🎯 Outros]
-    end
-    
-    subgraph "📝 Colunas da Tabela"
-        K[📅 Data]
-        L[🏷️ Classificação]
-        M[💰 Valor]
-        N[👤 Solicitante]
-        O[📝 Observações]
-        P[📎 Comprovante]
-        Q[✅ Status]
-    end
-    
-    A --> E --> F --> G --> H --> I --> J
-    B --> E --> F --> G --> H --> I --> J
-    C --> E --> F --> G --> H --> I --> J
-    D --> E --> F --> G --> H --> I --> J
-    
-    K --> L --> M --> N --> O --> P --> Q
-    
-    style A fill:#e3f2fd
-    style E fill:#fff3e0
-    style K fill:#c8e6c9
+### **📋 Exemplo da Tabela:**
+```
+MÊS: AGOSTO 2025
+┌──────────┬──────────────┬──────────┬─────────────────┐
+│ DATA     │ CLASSIFICAÇÃO│ VALOR    │ OBSERVAÇÕES     │
+├──────────┼──────────────┼──────────┼─────────────────┤
+│ 05/08    │ Alimentação  │ R$ 80    │ Lanche equipe   │
+│ 12/08    │ Transporte   │ R$ 120   │ Uber reunião    │
+│ 18/08    │ Material     │ R$ 45    │ Papel impressão │
+│ 25/08    │ Manutenção   │ R$ 200   │ Ar condicionado │
+└──────────┴──────────────┴──────────┴─────────────────┘
+TOTAL: R$ 445
 ```
 
 ---
 
-## 👥 **3. Níveis de Acesso - Matriz de Permissões**
+## 👥 **3. Quem Pode Fazer o Quê - Níveis de Acesso**
 
 ```mermaid
 graph TB
-    subgraph "👩‍💼 Ariela (Admin Principal)"
-        A[💳 Lança Pagamentos Fixos]
-        B[📎 Anexa NFs]
-        C[💰 Controla Orçamento Anual]
-        D[📊 Acesso Total ao Sistema]
+    subgraph "👩‍💼 ARIELA (Admin)"
+        A[💳 Pagamentos Fixos]
+        B[📎 Anexar NFs]
+        C[💰 Controlar orçamento]
+        D[📊 Acesso total]
     end
     
-    subgraph "👨‍🎓 Estagiário Ariela"
-        E[💸 Lança Pagamentos Variáveis]
-        F[📝 Preenche Observações]
-        G[📎 Anexa Comprovantes]
-        H[👀 Visualiza Relatórios]
+    subgraph "👨‍🎓 ESTAGIÁRIO"
+        E[💸 Pagamentos Variáveis]
+        F[📝 Preencher observações]
+        G[📎 Anexar comprovantes]
     end
     
-    subgraph "👩‍💼 Sonia (Gestão)"
-        I[📊 Acesso aos Pedidos]
-        J[📧 Recebe Relatórios Mensais]
-        K[💰 Monitora Orçamento]
-        L[📈 Acompanha Indicadores]
+    subgraph "👩‍💼 SONIA (Gestão)"
+        I[📊 Ver pedidos]
+        J[📧 Receber relatórios]
+        K[💰 Monitorar orçamento]
     end
     
-    subgraph "👨‍💼 Zé (Relatórios)"
-        M[📊 Visualiza Todos os Dados]
-        N[💾 Download XLS/TXT]
-        O[📈 Gera Relatórios]
-        P[📧 Envia por Email]
+    subgraph "👨‍💼 ZÉ (Relatórios)"
+        M[📊 Ver todos os dados]
+        N[💾 Baixar XLS/TXT]
+        O[📈 Gerar relatórios]
     end
     
-    subgraph "👩‍💼 Renata (Aprovações)"
-        Q[✅ Aprova Valores Altos]
-        R[📧 Responde por Email]
-        S[💰 Controla Orçamento]
-        T[📊 Acesso Total]
+    subgraph "👩‍💼 RENATA (Aprovações)"
+        Q[✅ Aprovar valores altos]
+        R[📧 Responder por email]
+        S[💰 Controlar orçamento]
     end
-    
-    A --> B --> C --> D
-    E --> F --> G --> H
-    I --> J --> K --> L
-    M --> N --> O --> P
-    Q --> R --> S --> T
     
     style A fill:#e3f2fd
     style E fill:#fff3e0
@@ -225,45 +162,26 @@ graph TB
 
 ---
 
-## 📧 **4. Fluxo de Comunicação por Email**
+## 📧 **4. Como Funciona a Comunicação por Email**
 
-```mermaid
-sequenceDiagram
-    participant A as 👩‍💼 Ariela
-    participant S as 👩‍💼 Sonia
-    participant Z as 👨‍💼 Zé
-    participant R as 👩‍💼 Renata
-    participant SYS as 📧 Sistema
+### **📅 Relatórios Mensais (Automáticos):**
+- **Dia 15**: Sistema envia relatório de pagamentos fixos para Sonia e Zé
+- **Dia 30**: Sistema envia relatório de gastos variáveis para todos
 
-    Note over A,SYS: 📅 RELATÓRIO MENSAL AUTOMÁTICO
-    
-    SYS->>S: 📧 Relatório Mensal Pagamentos Fixos
-    SYS->>Z: 📧 Relatório Mensal Pagamentos Fixos
-    
-    Note over A,SYS: 💰 APROVAÇÃO DE VALORES ALTOS
-    
-    A->>SYS: 💸 Cria pagamento > limite
-    SYS->>R: 📧 Solicita aprovação
-    R->>SYS: 📧 Responde por email
-    SYS->>A: 📧 Confirma status
-    
-    Note over A,SYS: 📊 RELATÓRIOS VARIÁVEIS
-    
-    A->>Z: 📧 Informa gastos variáveis
-    Z->>SYS: 📊 Gera relatório
-    SYS->>S: 📧 Envia relatório variáveis
-    SYS->>Z: 📧 Cópia do relatório
-    
-    Note over A,SYS: 🚨 ALERTAS AUTOMÁTICOS
-    
-    SYS->>A: ⏰ Vencimentos próximos
-    SYS->>R: 🚨 Pagamentos pendentes
-    SYS->>S: 📊 Resumo semanal
-```
+### **💰 Aprovações (Renata):**
+- Sistema identifica pagamentos que precisam de aprovação
+- Envia email para Renata: "Precisa aprovar pagamento de R$ X"
+- Renata responde por email: "Aprovado" ou "Rejeitado"
+- Sistema confirma para Ariela e atualiza status
+
+### **📊 Relatórios Variáveis (Zé):**
+- Ariela informa Zé sobre gastos variáveis
+- Zé gera relatório no sistema
+- Sistema envia para Sonia e cópia para Zé
 
 ---
 
-## 📊 **5. Fluxo Completo de Trabalho Mensal**
+## 📅 **5. Cronograma Mensal - Quando Acontece**
 
 ```mermaid
 gantt
@@ -273,148 +191,112 @@ gantt
     
     section 📊 Pagamentos Fixos
     Coleta de Dados        :01/08, 05/08
-    Validação de Valores   :05/08, 08/08
+    Validação              :05/08, 08/08
     Aprovação Renata       :08/08, 12/08
-    Geração Relatório      :12/08, 15/08
-    Envio por Email        :15/08, 16/08
+    Relatório              :12/08, 15/08
+    Email Automático       :15/08, 16/08
     
     section 💸 Gastos Variáveis
     Atualização Tabela     :01/08, 31/08
-    Coleta Comprovantes    :01/08, 31/08
-    Informação para Zé     :25/08, 28/08
-    Geração Relatório      :28/08, 31/08
-    
-    section 📧 Comunicação
-    Relatório Fixos        :15/08, 16/08
-    Relatório Variáveis    :31/08, 01/09
-    Aprovações Renata      :08/08, 12/08
-    Alertas Sistema        :01/08, 31/08
+    Comprovantes           :01/08, 31/08
+    Informar Zé            :25/08, 28/08
+    Relatório Final        :28/08, 31/08
 ```
 
 ---
 
-## 🔄 **6. Workflow de Aprovação - Valores Altos**
+## 🔄 **6. Exemplo Prático - Como Funciona na Prática**
+
+### **📝 Cenário: Ariela quer pagar salário de R$ 4.000**
 
 ```mermaid
-flowchart TD
-    A[📝 Ariela Cria Pagamento] --> B{💰 Valor > R$ 5.000?}
-    
-    B -->|❌ Não| C[✅ Aprovação Automática]
-    B -->|✅ Sim| D[⏳ Status: Pendente]
-    
-    C --> E[📧 Email para Sonia e Zé]
-    C --> F[📊 Atualiza Dashboard]
-    
-    D --> G[📧 Email para Renata<br/>"Solicita Aprovação"]
-    G --> H[👩‍💼 Renata Analisa<br/>Planilha + Sistema]
-    
-    H --> I{🔍 Aprova?}
-    I -->|✅ Sim| J[✅ Status: Aprovado]
-    I -->|❌ Não| K[❌ Status: Rejeitado]
-    I -->|🤔 Dúvida| L[📝 Solicita Mais Info]
-    
-    J --> M[📧 Email para Ariela<br/>"Aprovado"]
-    J --> N[📊 Atualiza Sistema]
-    J --> O[📧 Email para Sonia e Zé]
-    
-    K --> P[📧 Email para Ariela<br/>"Rejeitado + Motivo"]
-    K --> Q[📝 Registra Rejeição]
-    
-    L --> H
-    
-    style A fill:#e3f2fd
-    style C fill:#c8e6c9
-    style D fill:#fff3e0
-    style J fill:#c8e6c9
-    style K fill:#ffcdd2
-    style O fill:#e8f5e8
+sequenceDiagram
+    participant A as 👩‍💼 Ariela
+    participant S as ⚙️ Sistema
+    participant R as 👩‍💼 Renata
+    participant S2 as 👩‍💼 Sonia
+    participant Z as 👨‍💼 Zé
+
+    A->>S: 💰 Cria pagamento: Salário R$ 4.000
+    S->>S: 🔍 Verifica: R$ 4.000 > R$ 5.000? ❌
+    S->>S: ✅ Aprovação automática
+    S->>S: 📝 Status: Aprovado
+    S->>S2: 📧 Email: "Pagamento aprovado automaticamente"
+    S->>Z: 📧 Email: "Pagamento aprovado automaticamente"
+    S-->>A: ✅ Confirma: "Pagamento aprovado!"
 ```
 
----
-
-## 📋 **7. Estrutura da Planilha de Controle**
+### **📝 Cenário: Ariela quer pagar aluguel de R$ 6.000**
 
 ```mermaid
-graph TB
-    subgraph "📊 PLANILHA EXCEL - Pagamentos Fixos"
-        A[📅 Mês: Agosto 2025]
-        B[📁 Projeto: Vida Mais]
-    end
-    
-    subgraph "👥 FUNCIONÁRIOS"
-        C[👤 João Silva - R$ 3.500]
-        D[👤 Maria Santos - R$ 2.800]
-        E[👤 Pedro Costa - R$ 4.200]
-    end
-    
-    subgraph "🏠 ALUGUEL"
-        F[🏢 Escritório - R$ 2.500]
-        G[🏠 Depósito - R$ 1.800]
-    end
-    
-    subgraph "🎓 BOLSAS"
-        H[🎓 Bolsa Estudo A - R$ 800]
-        I[🎓 Bolsa Estudo B - R$ 600]
-    end
-    
-    subgraph "🍕 REEMBOLSOS"
-        J[🍕 Lanches - R$ 150]
-        K[🚗 Transporte - R$ 200]
-    end
-    
-    subgraph "📊 TOTAIS"
-        L[💰 Total: R$ 16.550]
-        M[✅ Dentro do Orçamento]
-        N[📧 Enviar para Sonia e Zé]
-    end
-    
-    A --> B
-    C --> D --> E
-    F --> G
-    H --> I
-    J --> K
-    L --> M --> N
-    
-    style A fill:#e3f2fd
-    style C fill:#c8e6c9
-    style L fill:#ff9800,color:#fff
-    style N fill:#4caf50,color:#fff
+sequenceDiagram
+    participant A as 👩‍💼 Ariela
+    participant S as ⚙️ Sistema
+    participant R as 👩‍💼 Renata
+    participant S2 as 👩‍💼 Sonia
+    participant Z as 👨‍💼 Zé
+
+    A->>S: 💰 Cria pagamento: Aluguel R$ 6.000
+    S->>S: 🔍 Verifica: R$ 6.000 > R$ 5.000? ✅
+    S->>S: ⏳ Status: Pendente
+    S->>R: 📧 Email: "Precisa aprovar aluguel R$ 6.000"
+    R->>S: 📧 Email: "Aprovado"
+    S->>S: ✅ Status: Aprovado
+    S->>A: 📧 Email: "Aluguel aprovado!"
+    S->>S2: 📧 Email: "Aluguel aprovado"
+    S->>Z: 📧 Email: "Aluguel aprovado"
 ```
 
 ---
 
-## 🎯 **8. Resumo do Fluxo Real**
+## 🎯 **7. Resumo Simples - Como Funciona**
 
-### **📅 Mensalmente (Pagamentos Fixos)**
-1. **Ariela** atualiza planilha com pagamentos fixos
-2. **Sistema** identifica valores que precisam de aprovação
+### **📅 Todo Mês (Pagamentos Fixos):**
+1. **Ariela** coloca pagamentos na planilha
+2. **Sistema** identifica o que precisa de aprovação
 3. **Renata** recebe email e responde por email
-4. **Sistema** gera relatório e envia para **Sonia e Zé**
+4. **Sistema** envia relatório para Sonia e Zé
 
-### **📊 Continuamente (Gastos Variáveis)**
-1. **Ariela/Estagiário** atualiza tabela Google Drive
-2. **Ariela** coleta comprovantes da conta Vida Mais
-3. **Zé** gera relatório baseado nas informações
-4. **Sistema** envia relatório para stakeholders
+### **📊 Durante o Mês (Gastos Variáveis):**
+1. **Ariela/Estagiário** coloca gastos na tabela
+2. **Ariela** pega comprovantes da conta
+3. **Zé** gera relatório
+4. **Sistema** envia para todos
 
-### **🔐 Controle de Acesso**
-- **Ariela**: Total (fixos + variáveis + NFs)
-- **Estagiário**: Apenas variáveis
-- **Sonia**: Visualização + relatórios
-- **Zé**: Visualização + download + relatórios
-- **Renata**: Aprovações + controle orçamentário
+### **🔐 Quem Pode Fazer o Quê:**
+- **Ariela**: Tudo (fixos + variáveis + NFs)
+- **Estagiário**: Só variáveis
+- **Sonia**: Ver + receber relatórios
+- **Zé**: Ver + baixar + relatórios
+- **Renata**: Aprovar valores altos
 
 ---
 
-## 🎉 **Conclusão do Fluxo Real**
+## 🎉 **Conclusão - Sistema Simples e Prático**
 
-O sistema funciona exatamente como definido na reunião:
+O sistema funciona **exatamente** como na reunião:
 
-✅ **Pagamentos Fixos**: Planilha Excel + aprovação Renata + email mensal  
-✅ **Gastos Variáveis**: Tabela Google Drive + comprovantes + relatórios Zé  
-✅ **Aprovações**: Renata responde por email para valores altos  
+✅ **Pagamentos Fixos**: Planilha Excel + Renata aprova por email + relatório mensal  
+✅ **Gastos Variáveis**: Tabela Google Drive + comprovantes + Zé faz relatório  
+✅ **Aprovações**: Renata responde por email (valores altos)  
 ✅ **Relatórios**: Automáticos mensais + manuais por Zé  
-✅ **Acesso**: Níveis bem definidos por perfil de usuário  
-✅ **Comunicação**: Email como canal principal de aprovação  
+✅ **Acesso**: Cada um pode fazer o que precisa  
+✅ **Comunicação**: Email para tudo (como funciona hoje)  
 
-**🎯 Resultado**: Sistema que replica exatamente o workflow atual da Vida Mais, mas de forma digital e organizada! 🚀
+**🎯 Resultado**: Sistema que digitaliza o que já funciona, sem complicar! 🚀
+
+---
+
+## ❓ **Perguntas Frequentes**
+
+**Q: Renata precisa entrar no sistema?**  
+A: Não! Ela só responde por email, como funciona hoje.
+
+**Q: Como fica a planilha Excel?**  
+A: Continua igual! O sistema só organiza melhor.
+
+**Q: E se Renata não responder?**  
+A: Sistema envia lembretes automáticos.
+
+**Q: Posso continuar usando Google Drive?**  
+A: Sim! O sistema integra com o que já usa.
