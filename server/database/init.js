@@ -1,151 +1,246 @@
 const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
 const bcrypt = require('bcryptjs');
+const path = require('path');
 
-const dbPath = path.join(__dirname, 'vida-mais.db');
+console.log('🚀 Inicializando banco de dados SQLite...');
+
+// Caminho para o banco
+const dbPath = path.join(__dirname, 'vida_mais.db');
 const db = new sqlite3.Database(dbPath);
 
-console.log('🗄️ Inicializando banco de dados...');
+// Função para criar tabelas
+const criarTabelas = () => {
+  return new Promise((resolve, reject) => {
+    console.log('📋 Criando tabelas...');
+    
+    const tabelas = [
+      `CREATE TABLE IF NOT EXISTS usuarios (
+        id TEXT PRIMARY KEY,
+        email TEXT UNIQUE NOT NULL,
+        senha_hash TEXT NOT NULL,
+        nome TEXT NOT NULL,
+        perfil TEXT NOT NULL,
+        ativo INTEGER DEFAULT 1,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )`,
+      
+      `CREATE TABLE IF NOT EXISTS projetos (
+        id TEXT PRIMARY KEY,
+        nome TEXT NOT NULL,
+        descricao TEXT,
+        orcamento_anual REAL,
+        ativo INTEGER DEFAULT 1,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )`,
+      
+      `CREATE TABLE IF NOT EXISTS pagamentos_fixos (
+        id TEXT PRIMARY KEY,
+        descricao TEXT NOT NULL,
+        valor REAL NOT NULL,
+        tipo TEXT NOT NULL,
+        mes_ano TEXT NOT NULL,
+        projeto_id TEXT,
+        status TEXT DEFAULT 'pendente',
+        aprovado_por TEXT,
+        data_aprovacao DATETIME,
+        observacoes TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (projeto_id) REFERENCES projetos (id),
+        FOREIGN KEY (aprovado_por) REFERENCES usuarios (id)
+      )`,
+      
+      `CREATE TABLE IF NOT EXISTS pagamentos_variaveis (
+        id TEXT PRIMARY KEY,
+        descricao TEXT NOT NULL,
+        valor REAL NOT NULL,
+        classificacao TEXT NOT NULL,
+        data_pagamento DATE NOT NULL,
+        mes_ano TEXT NOT NULL,
+        solicitante_id TEXT,
+        status TEXT DEFAULT 'pendente',
+        observacoes TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (solicitante_id) REFERENCES usuarios (id)
+      )`
+    ];
 
-// Criar tabelas
-db.serialize(() => {
-  // Tabela de usuários
-  db.run(`
-    CREATE TABLE IF NOT EXISTS usuarios (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL,
-      senha TEXT NOT NULL,
-      perfil TEXT NOT NULL CHECK(perfil IN ('ariela', 'estagiario', 'sonia', 'ze', 'renata', 'admin')),
-      ativo BOOLEAN DEFAULT 1,
-      criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
+    let tabelasCriadas = 0;
+    
+    tabelas.forEach((sql, index) => {
+      db.run(sql, (err) => {
+        if (err) {
+          console.error(`❌ Erro ao criar tabela ${index + 1}:`, err);
+          reject(err);
+          return;
+        }
+        
+        tabelasCriadas++;
+        console.log(`✅ Tabela ${index + 1} criada`);
+        
+        if (tabelasCriadas === tabelas.length) {
+          resolve();
+        }
+      });
+    });
+  });
+};
 
-  // Tabela de projetos
-  db.run(`
-    CREATE TABLE IF NOT EXISTS projetos (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT NOT NULL,
-      descricao TEXT,
-      orcamento_anual DECIMAL(15,2),
-      ativo BOOLEAN DEFAULT 1,
-      criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
+// Função para criar usuários
+const criarUsuarios = () => {
+  return new Promise((resolve, reject) => {
+    console.log('👥 Criando usuários...');
+    
+    const usuarios = [
+      {
+        id: '550e8400-e29b-41d4-a716-446655440001',
+        email: 'ariela@vidamais.com',
+        senha_hash: bcrypt.hashSync('ariela123', 10),
+        nome: 'Ariela',
+        perfil: 'ariela',
+        ativo: 1
+      },
+      {
+        id: '550e8400-e29b-41d4-a716-446655440002',
+        email: 'estagiario@vidamais.com',
+        senha_hash: bcrypt.hashSync('estagiario123', 10),
+        nome: 'Estagiário Ariela',
+        perfil: 'estagiario',
+        ativo: 1
+      },
+      {
+        id: '550e8400-e29b-41d4-a716-446655440003',
+        email: 'sonia@vidamais.com',
+        senha_hash: bcrypt.hashSync('sonia123', 10),
+        nome: 'Sonia',
+        perfil: 'sonia',
+        ativo: 1
+      },
+      {
+        id: '550e8400-e29b-41d4-a716-446655440004',
+        email: 'ze@vidamais.com',
+        senha_hash: bcrypt.hashSync('ze123', 10),
+        nome: 'Zé',
+        perfil: 'ze',
+        ativo: 1
+      },
+      {
+        id: '550e8400-e29b-41d4-a716-446655440005',
+        email: 'renata@vidamais.com',
+        senha_hash: bcrypt.hashSync('renata123', 10),
+        nome: 'Renata',
+        perfil: 'renata',
+        ativo: 1
+      },
+      {
+        id: '550e8400-e29b-41d4-a716-446655440006',
+        email: 'admin@vidamais.com',
+        senha_hash: bcrypt.hashSync('admin123', 10),
+        nome: 'Administrador',
+        perfil: 'admin',
+        ativo: 1
+      }
+    ];
 
-  // Tabela de pagamentos fixos
-  db.run(`
-    CREATE TABLE IF NOT EXISTS pagamentos_fixos (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      descricao TEXT NOT NULL,
-      valor DECIMAL(15,2) NOT NULL,
-      tipo TEXT NOT NULL CHECK(tipo IN ('funcionario', 'aluguel', 'bolsa_estudo', 'outros')),
-      projeto_id INTEGER,
-      fornecedor TEXT,
-      conta_bancaria TEXT,
-      dia_vencimento INTEGER CHECK(dia_vencimento >= 1 AND dia_vencimento <= 31),
-      ativo BOOLEAN DEFAULT 1,
-      observacoes TEXT,
-      criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (projeto_id) REFERENCES projetos (id)
-    )
-  `);
+    let usuariosCriados = 0;
+    
+    usuarios.forEach((usuario) => {
+      const sql = `INSERT OR REPLACE INTO usuarios (id, email, senha_hash, nome, perfil, ativo) VALUES (?, ?, ?, ?, ?, ?)`;
+      
+      db.run(sql, [usuario.id, usuario.email, usuario.senha_hash, usuario.nome, usuario.perfil, usuario.ativo], (err) => {
+        if (err) {
+          console.error(`❌ Erro ao criar usuário ${usuario.nome}:`, err);
+          reject(err);
+          return;
+        }
+        
+        usuariosCriados++;
+        console.log(`✅ Usuário ${usuario.nome} criado`);
+        
+        if (usuariosCriados === usuarios.length) {
+          resolve();
+        }
+      });
+    });
+  });
+};
 
-  // Tabela de pagamentos variáveis
-  db.run(`
-    CREATE TABLE IF NOT EXISTS pagamentos_variaveis (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      descricao TEXT NOT NULL,
-      valor DECIMAL(15,2) NOT NULL,
-      data_pagamento DATE NOT NULL,
-      mes_referencia TEXT NOT NULL,
-      ano_referencia INTEGER NOT NULL,
-      classificacao TEXT NOT NULL,
-      projeto_id INTEGER,
-      fornecedor TEXT,
-      numero_nf TEXT,
-      comprovante_path TEXT,
-      observacoes TEXT,
-      status TEXT DEFAULT 'pendente' CHECK(status IN ('pendente', 'aprovado', 'rejeitado')),
-      aprovado_por INTEGER,
-      criado_por INTEGER NOT NULL,
-      criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (projeto_id) REFERENCES projetos (id),
-      FOREIGN KEY (aprovado_por) REFERENCES usuarios (id),
-      FOREIGN KEY (criado_por) REFERENCES usuarios (id)
-    )
-  `);
+// Função para criar projetos
+const criarProjetos = () => {
+  return new Promise((resolve, reject) => {
+    console.log('🏗️  Criando projetos...');
+    
+    const projetos = [
+      {
+        id: '550e8400-e29b-41d4-a716-446655440007',
+        nome: 'Projeto Vida Mais',
+        descricao: 'Projeto principal da organização',
+        orcamento_anual: 500000.00,
+        ativo: 1
+      },
+      {
+        id: '550e8400-e29b-41d4-a716-446655440008',
+        nome: 'Projeto Educacional',
+        descricao: 'Projeto de bolsas de estudo',
+        orcamento_anual: 200000.00,
+        ativo: 1
+      }
+    ];
 
-  // Tabela de anexos
-  db.run(`
-    CREATE TABLE IF NOT EXISTS anexos (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome_arquivo TEXT NOT NULL,
-      caminho_arquivo TEXT NOT NULL,
-      tipo_arquivo TEXT NOT NULL,
-      tamanho INTEGER,
-      pagamento_id INTEGER,
-      pagamento_tipo TEXT CHECK(pagamento_tipo IN ('fixo', 'variavel')),
-      criado_por INTEGER NOT NULL,
-      criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (criado_por) REFERENCES usuarios (id)
-    )
-  `);
+    let projetosCriados = 0;
+    
+    projetos.forEach((projeto) => {
+      const sql = `INSERT OR REPLACE INTO projetos (id, nome, descricao, orcamento_anual, ativo) VALUES (?, ?, ?, ?, ?)`;
+      
+      db.run(sql, [projeto.id, projeto.nome, projeto.descricao, projeto.orcamento_anual, projeto.ativo], (err) => {
+        if (err) {
+          console.error(`❌ Erro ao criar projeto ${projeto.nome}:`, err);
+          reject(err);
+          return;
+        }
+        
+        projetosCriados++;
+        console.log(`✅ Projeto ${projeto.nome} criado`);
+        
+        if (projetosCriados === projetos.length) {
+          resolve();
+        }
+      });
+    });
+  });
+};
 
-  // Tabela de logs de aprovação
-  db.run(`
-    CREATE TABLE IF NOT EXISTS logs_aprovacao (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      pagamento_id INTEGER NOT NULL,
-      pagamento_tipo TEXT NOT NULL CHECK(pagamento_tipo IN ('fixo', 'variavel')),
-      acao TEXT NOT NULL CHECK(acao IN ('aprovado', 'rejeitado', 'pendente')),
-      observacoes TEXT,
-      aprovado_por INTEGER NOT NULL,
-      data_aprovacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (aprovado_por) REFERENCES usuarios (id)
-    )
-  `);
-
-  console.log('✅ Tabelas criadas com sucesso!');
-
-  // Inserir dados iniciais
-  const senhaHash = bcrypt.hashSync('123456', 10);
-  
-  // Usuários padrão
-  const usuarios = [
-    ['Ariela Silva', 'ariela@vidamais.com', senhaHash, 'ariela'],
-    ['Estagiário Ariela', 'estagiario@vidamais.com', senhaHash, 'estagiario'],
-    ['Sonia Costa', 'sonia@vidamais.com', senhaHash, 'sonia'],
-    ['Zé Santos', 'ze@vidamais.com', senhaHash, 'ze'],
-    ['Renata Oliveira', 'renata@vidamais.com', senhaHash, 'renata'],
-    ['Admin Sistema', 'admin@vidamais.com', senhaHash, 'admin']
-  ];
-
-  const stmt = db.prepare('INSERT OR IGNORE INTO usuarios (nome, email, senha, perfil) VALUES (?, ?, ?, ?)');
-  usuarios.forEach(usuario => stmt.run(usuario));
-  stmt.finalize();
-
-  // Projetos padrão
-  const projetos = [
-    ['Projeto Vida+', 'Projeto principal da Vida Mais', 500000.00],
-    ['Projeto Educacional', 'Bolsas de estudo e capacitação', 200000.00],
-    ['Projeto Comunitário', 'Ações sociais e comunitárias', 150000.00]
-  ];
-
-  const stmtProjetos = db.prepare('INSERT OR IGNORE INTO projetos (nome, descricao, orcamento_anual) VALUES (?, ?, ?)');
-  projetos.forEach(projeto => stmtProjetos.run(projeto));
-  stmtProjetos.finalize();
-
-  console.log('✅ Dados iniciais inseridos!');
-  console.log('🔑 Usuários padrão criados com senha: 123456');
-});
-
-db.close((err) => {
-  if (err) {
-    console.error('❌ Erro ao fechar banco:', err.message);
-  } else {
-    console.log('✅ Banco de dados inicializado com sucesso!');
-    console.log('📁 Arquivo: vida-mais.db');
+// Função principal
+const inicializarBanco = async () => {
+  try {
+    await criarTabelas();
+    await criarUsuarios();
+    await criarProjetos();
+    
+    console.log('🎉 Banco de dados inicializado com sucesso!');
+    console.log('📊 Usuários de teste criados:');
+    console.log('   - ariela@vidamais.com / ariela123');
+    console.log('   - estagiario@vidamais.com / estagiario123');
+    console.log('   - sonia@vidamais.com / sonia123');
+    console.log('   - ze@vidamais.com / ze123');
+    console.log('   - renata@vidamais.com / renata123');
+    console.log('   - admin@vidamais.com / admin123');
+    
+    db.close();
+    process.exit(0);
+  } catch (error) {
+    console.error('❌ Erro na inicialização:', error);
+    db.close();
+    process.exit(1);
   }
-});
+};
+
+// Executar se chamado diretamente
+if (require.main === module) {
+  inicializarBanco();
+}
+
+module.exports = { inicializarBanco };

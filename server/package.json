@@ -1,7 +1,7 @@
 {
   "name": "vida-mais-server",
   "version": "1.0.0",
-  "description": "Backend do sistema de pagamentos Vida Mais",
+  "description": "Backend do Sistema de Pagamentos Vida Mais",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -14,7 +14,7 @@
     "helmet": "^7.1.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "sqlite3": "^5.1.6",
+            "sqlite3": "^5.1.6",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.7",
     "xlsx": "^0.18.5",
@@ -23,5 +23,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
-  }
+  },
+  "keywords": ["vida-mais", "pagamentos", "supabase", "postgresql"],
+  "author": "Vida Mais",
+  "license": "MIT"
 }
