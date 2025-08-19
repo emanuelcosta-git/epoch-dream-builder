@@ -18,22 +18,22 @@
 ### **🔄 Como Funciona:**
 ```mermaid
 flowchart TD
-    A[📊 Ariela atualiza<br/>planilha Excel] --> B{💰 Valor > R$ 5.000?}
+    A[Ariela atualiza<br/>planilha Excel] --> B{Valor > R$ 5.000?}
     
-    B -->|❌ Não (lanches, reembolsos)| C[✅ Aprovação Automática]
-    B -->|✅ Sim (salários, aluguel)| D[⏳ Aguarda Renata]
+    B -->|Nao| C[Aprovacao Automatica]
+    B -->|Sim| D[Aguarda Renata]
     
-    C --> E[📧 Email automático<br/>para Sonia e Zé]
+    C --> E[Email automatico<br/>para Sonia e Ze]
     
-    D --> F[📧 Email para Renata<br/>"Precisa aprovar"]
-    F --> G[👩‍💼 Renata analisa<br/>e responde por email]
+    D --> F[Email para Renata<br/>"Precisa aprovar"]
+    F --> G[Renata analisa<br/>e responde por email]
     
-    G --> H{🔍 Aprovou?}
-    H -->|✅ Sim| I[✅ Pagamento aprovado]
-    H -->|❌ Não| J[❌ Pagamento rejeitado]
+    G --> H{Aprovou?}
+    H -->|Sim| I[Pagamento aprovado]
+    H -->|Nao| J[Pagamento rejeitado]
     
     I --> E
-    J --> K[📝 Registra rejeição<br/>Aguarda ajustes]
+    J --> K[Registra rejeicao<br/>Aguarda ajustes]
     
     style A fill:#e3f2fd
     style C fill:#c8e6c9
@@ -70,23 +70,23 @@ TOTAL: R$ 9.150
 ### **🔄 Como Funciona:**
 ```mermaid
 flowchart LR
-    subgraph "📊 Tabela Google Drive"
-        A[📅 Mês/Ano]
-        B[🏷️ Classificação]
-        C[💰 Valor]
-        D[📝 Observações]
+    subgraph "Tabela Google Drive"
+        A[Mes/Ano]
+        B[Classificacao]
+        C[Valor]
+        D[Observacoes]
     end
     
-    subgraph "👩‍💼 Ariela"
-        E[💳 Acessa conta<br/>Vida Mais]
-        F[📱 Pega<br/>comprovantes]
-        G[📊 Atualiza<br/>tabela]
+    subgraph "Ariela"
+        E[Acessa conta<br/>Vida Mais]
+        F[Pega<br/>comprovantes]
+        G[Atualiza<br/>tabela]
     end
     
-    subgraph "👨‍💼 Zé"
-        H[📊 Analisa dados]
-        I[📈 Gera relatório]
-        J[📧 Envia para<br/>todos]
+    subgraph "Ze"
+        H[Analisa dados]
+        I[Gera relatorio]
+        J[Envia para<br/>todos]
     end
     
     A --> E
@@ -122,35 +122,35 @@ TOTAL: R$ 445
 
 ```mermaid
 graph TB
-    subgraph "👩‍💼 ARIELA (Admin)"
-        A[💳 Pagamentos Fixos]
-        B[📎 Anexar NFs]
-        C[💰 Controlar orçamento]
-        D[📊 Acesso total]
+    subgraph "ARIELA (Admin)"
+        A[Pagamentos Fixos]
+        B[Anexar NFs]
+        C[Controlar orcamento]
+        D[Acesso total]
     end
     
-    subgraph "👨‍🎓 ESTAGIÁRIO"
-        E[💸 Pagamentos Variáveis]
-        F[📝 Preencher observações]
-        G[📎 Anexar comprovantes]
+    subgraph "ESTAGIARIO"
+        E[Pagamentos Variaveis]
+        F[Preencher observacoes]
+        G[Anexar comprovantes]
     end
     
-    subgraph "👩‍💼 SONIA (Gestão)"
-        I[📊 Ver pedidos]
-        J[📧 Receber relatórios]
-        K[💰 Monitorar orçamento]
+    subgraph "SONIA (Gestao)"
+        I[Ver pedidos]
+        J[Receber relatorios]
+        K[Monitorar orcamento]
     end
     
-    subgraph "👨‍💼 ZÉ (Relatórios)"
-        M[📊 Ver todos os dados]
-        N[💾 Baixar XLS/TXT]
-        O[📈 Gerar relatórios]
+    subgraph "ZE (Relatorios)"
+        M[Ver todos os dados]
+        N[Baixar XLS/TXT]
+        O[Gerar relatorios]
     end
     
-    subgraph "👩‍💼 RENATA (Aprovações)"
-        Q[✅ Aprovar valores altos]
-        R[📧 Responder por email]
-        S[💰 Controlar orçamento]
+    subgraph "RENATA (Aprovacoes)"
+        Q[Aprovar valores altos]
+        R[Responder por email]
+        S[Controlar orcamento]
     end
     
     style A fill:#e3f2fd
@@ -185,22 +185,22 @@ graph TB
 
 ```mermaid
 gantt
-    title 📅 Cronograma Mensal - Sistema Vida Mais
+    title Cronograma Mensal - Sistema Vida Mais
     dateFormat  DD/MM
     axisFormat %d/%m
     
-    section 📊 Pagamentos Fixos
+    section Pagamentos Fixos
     Coleta de Dados        :01/08, 05/08
-    Validação              :05/08, 08/08
-    Aprovação Renata       :08/08, 12/08
-    Relatório              :12/08, 15/08
-    Email Automático       :15/08, 16/08
+    Validacao              :05/08, 08/08
+    Aprovacao Renata       :08/08, 12/08
+    Relatorio              :12/08, 15/08
+    Email Automatico       :15/08, 16/08
     
-    section 💸 Gastos Variáveis
-    Atualização Tabela     :01/08, 31/08
+    section Gastos Variaveis
+    Atualizacao Tabela     :01/08, 31/08
     Comprovantes           :01/08, 31/08
-    Informar Zé            :25/08, 28/08
-    Relatório Final        :28/08, 31/08
+    Informar Ze            :25/08, 28/08
+    Relatorio Final        :28/08, 31/08
 ```
 
 ---
@@ -211,40 +211,40 @@ gantt
 
 ```mermaid
 sequenceDiagram
-    participant A as 👩‍💼 Ariela
-    participant S as ⚙️ Sistema
-    participant R as 👩‍💼 Renata
-    participant S2 as 👩‍💼 Sonia
-    participant Z as 👨‍💼 Zé
+    participant A as Ariela
+    participant S as Sistema
+    participant R as Renata
+    participant S2 as Sonia
+    participant Z as Ze
 
-    A->>S: 💰 Cria pagamento: Salário R$ 4.000
-    S->>S: 🔍 Verifica: R$ 4.000 > R$ 5.000? ❌
-    S->>S: ✅ Aprovação automática
-    S->>S: 📝 Status: Aprovado
-    S->>S2: 📧 Email: "Pagamento aprovado automaticamente"
-    S->>Z: 📧 Email: "Pagamento aprovado automaticamente"
-    S-->>A: ✅ Confirma: "Pagamento aprovado!"
+    A->>S: Cria pagamento: Salario R$ 4.000
+    S->>S: Verifica: R$ 4.000 > R$ 5.000? Nao
+    S->>S: Aprovacao automatica
+    S->>S: Status: Aprovado
+    S->>S2: Email: "Pagamento aprovado automaticamente"
+    S->>Z: Email: "Pagamento aprovado automaticamente"
+    S-->>A: Confirma: "Pagamento aprovado!"
 ```
 
 ### **📝 Cenário: Ariela quer pagar aluguel de R$ 6.000**
 
 ```mermaid
 sequenceDiagram
-    participant A as 👩‍💼 Ariela
-    participant S as ⚙️ Sistema
-    participant R as 👩‍💼 Renata
-    participant S2 as 👩‍💼 Sonia
-    participant Z as 👨‍💼 Zé
+    participant A as Ariela
+    participant S as Sistema
+    participant R as Renata
+    participant S2 as Sonia
+    participant Z as Ze
 
-    A->>S: 💰 Cria pagamento: Aluguel R$ 6.000
-    S->>S: 🔍 Verifica: R$ 6.000 > R$ 5.000? ✅
-    S->>S: ⏳ Status: Pendente
-    S->>R: 📧 Email: "Precisa aprovar aluguel R$ 6.000"
-    R->>S: 📧 Email: "Aprovado"
-    S->>S: ✅ Status: Aprovado
-    S->>A: 📧 Email: "Aluguel aprovado!"
-    S->>S2: 📧 Email: "Aluguel aprovado"
-    S->>Z: 📧 Email: "Aluguel aprovado"
+    A->>S: Cria pagamento: Aluguel R$ 6.000
+    S->>S: Verifica: R$ 6.000 > R$ 5.000? Sim
+    S->>S: Status: Pendente
+    S->>R: Email: "Precisa aprovar aluguel R$ 6.000"
+    R->>S: Email: "Aprovado"
+    S->>S: Status: Aprovado
+    S->>A: Email: "Aluguel aprovado!"
+    S->>S2: Email: "Aluguel aprovado"
+    S->>Z: Email: "Aluguel aprovado"
 ```
 
 ---
