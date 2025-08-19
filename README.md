@@ -1,73 +1,55 @@
-# Welcome to your Lovable project
+# Sistema de Controle de Pagamentos - Vida Mais
 
-## Project info
+Sistema web para controle de pagamentos fixos e variáveis da Vida Mais, desenvolvido conforme especificações da reunião de 7 de agosto de 2025.
 
-**URL**: https://lovable.dev/projects/dce6776b-60d3-4a63-a79a-f225c426689f
+## Funcionalidades
 
-## How can I edit this code?
+### 1. Pagamentos Mensais Fixos
+- Controle de funcionários, aluguel e bolsas de estudo
+- Envio mensal por e-mail para Sonia e Zé
+- Classificações e controle de NF's
+- Aprovação da Renata para valores altos
+- Rateamento de salários entre projetos
 
-There are several ways of editing your application.
+### 2. Controle de Pagamentos Variáveis
+- Tabela organizada por mês e classificações
+- Observações sobre cada pagamento
+- Relatórios gerados pelo Zé
+- Acesso aos comprovantes da conta
 
-**Use Lovable**
+## Níveis de Acesso
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/dce6776b-60d3-4a63-a79a-f225c426689f) and start prompting.
+- **Ariela**: Lança pagamentos fixos e anexa NF's
+- **Estagiário Ariela**: Lança pagamentos variáveis
+- **Sonia**: Acesso aos pedidos de pagamentos
+- **Zé**: Visualiza e baixa relatórios em XLS/TXT
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tecnologias
 
-**Use your preferred IDE**
+- **Frontend**: React + Material-UI
+- **Backend**: Node.js + Express
+- **Banco de Dados**: SQLite
+- **Autenticação**: JWT
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Instalação
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone o repositório
+2. Execute `npm run install-all` para instalar todas as dependências
+3. Execute `npm run dev` para iniciar o desenvolvimento
+4. Acesse `http://localhost:3000` no navegador
 
-Follow these steps:
+## Estrutura do Projeto
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+vida-mais-pagamentos/
+├── client/          # Frontend React
+├── server/          # Backend Node.js
+├── database/        # Arquivos do banco SQLite
+└── docs/           # Documentação
 ```
 
-**Edit a file directly in GitHub**
+## Scripts Disponíveis
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/dce6776b-60d3-4a63-a79a-f225c426689f) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- `npm run dev`: Inicia servidor e cliente em modo desenvolvimento
+- `npm run build`: Constrói o projeto para produção
+- `npm start`: Inicia o servidor de produção
